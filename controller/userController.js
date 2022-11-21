@@ -5,7 +5,7 @@ import sendToken from "../utils/sendToken.js";
 
 
 
-const register = catchAsyncError(async(req,res,next)=>{
+export const register = catchAsyncError(async(req,res,next)=>{
     const {name,email,password} = req.body;
     const user = await User.create({
         name:name,
@@ -15,7 +15,7 @@ const register = catchAsyncError(async(req,res,next)=>{
     sendToken(user,201,res);
 });
 
-const login = catchAsyncError(async(req,res,next)=>{
+export const login = catchAsyncError(async(req,res,next)=>{
     const {email,password} = req.body;
 
     const user = await User.findOne({email:email}).select("+password");
@@ -32,7 +32,7 @@ const login = catchAsyncError(async(req,res,next)=>{
 });
 
 
-const logoutUser = catchAsyncError(async(req,res,next)=>{
+export const logoutUser = catchAsyncError(async(req,res,next)=>{
     res.cookie("token", null, {
         expires: new Date(Date.now()),
         httpOnly: true,
