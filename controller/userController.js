@@ -7,6 +7,12 @@ import sendToken from "../utils/sendToken.js";
 
 export const register = catchAsyncError(async(req,res,next)=>{
     const {name,email,password} = req.body;
+     
+    const userExist  = await User.findOne({email:email})
+    if(userExist){
+        return next(new ErrorHandler("user already register with this mail",400))
+    }
+    
     const user = await User.create({
         name:name,
         email:email,
@@ -18,7 +24,7 @@ export const register = catchAsyncError(async(req,res,next)=>{
 export const login = catchAsyncError(async(req,res,next)=>{
     const {email,password} = req.body;
 
-    const user = await User.findOne({email:email}).select("+password");
+    const user = await User.findOne({email:email})
     
     if(!user){
      return next(new ErrorHandler("Invalid username or password",401))
@@ -32,7 +38,7 @@ export const login = catchAsyncError(async(req,res,next)=>{
 });
 
 
-export const logoutUser = catchAsyncError(async(req,res,next)=>{
+export const logout = catchAsyncError(async(req,res,next)=>{
     res.cookie("token", null, {
         expires: new Date(Date.now()),
         httpOnly: true,
