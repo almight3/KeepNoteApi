@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const {schema} = mongoose;
+const {Schema} = mongoose;
 import validator from "validator";
 import bcrypt from 'bcrypt';
 import  jwt  from "jsonwebtoken";
