@@ -11,12 +11,21 @@ const notesScheam = new Schema({
         type:String,
         required:[true,"title is required"]
     },
-    description:{
+    content:{
         type:String,
         required:[true,"discription is required"]
     },
     label:{
-        type:String
+        type:String,
+        default:"Work"
+    },
+    priority:{
+        type:String,
+        default:"Medium" 
+    },
+    pinned:{
+     type:Boolean,
+     default:false
     },
     createdAt:{
         type:Date,
