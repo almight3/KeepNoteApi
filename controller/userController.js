@@ -6,7 +6,7 @@ import sendToken from "../utils/sendToken.js";
 
 
 export const register = catchAsyncError(async(req,res,next)=>{
-    const {name,email,password} = req.body;
+    const {name,email,password} = req.body.formData;
      
     const userExist  = await User.findOne({email:email})
     if(userExist){
@@ -22,7 +22,8 @@ export const register = catchAsyncError(async(req,res,next)=>{
 });
 
 export const login = catchAsyncError(async(req,res,next)=>{
-    const {email,password} = req.body;
+    const {email,password} = req.body.formData;
+    console.log(req.body)
 
     const user = await User.findOne({email:email})
     

@@ -6,6 +6,7 @@ import sendToken from "../utils/sendToken.js";
 // create notes
 export const createNote = catchAsyncError(async(req,res,next)=>{
     req.body.user = req.user._id;
+    console.log(req.body)
     const notes = await Notes.create(req.body);
     res.status(201).json({
         success:true,

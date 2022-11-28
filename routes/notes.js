@@ -4,9 +4,9 @@ import {createNote,getAllNotes,getNoteDetail,updateNotes,deleteNote} from "../co
 import {authenticateUser} from "../middleware/auth.js";
 router.route('/notes').get(authenticateUser,getAllNotes)
 router.route('/new/note').post(authenticateUser,createNote)
-router.route('/note/:id').get(authenticateUser,getNoteDetail)
-router.route('/note/:id').put(authenticateUser,updateNotes)
-router.route('/note/:id').delete(authenticateUser,deleteNote)
+router.route('/notes/:id').get(authenticateUser,getNoteDetail)
+router.route('/notes/:id').put(authenticateUser,updateNotes)
+router.route('/notes/:id').delete(authenticateUser,deleteNote)
 
 
 export default router;
