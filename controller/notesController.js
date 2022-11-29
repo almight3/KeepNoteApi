@@ -6,8 +6,8 @@ import sendToken from "../utils/sendToken.js";
 // create notes
 export const createNote = catchAsyncError(async(req,res,next)=>{
     req.body.user = req.user._id;
-    console.log(req.body)
-    const notes = await Notes.create(req.body);
+    await Notes.create(req.body);
+    const notes = await Notes.find({user:req.user._id})
     res.status(201).json({
         success:true,
         notes
@@ -17,8 +17,7 @@ export const createNote = catchAsyncError(async(req,res,next)=>{
 // get all notes 
 export const getAllNotes = catchAsyncError(async(req,res,next)=>{
     const notes = await Notes.find({user:req.user._id})
-
-     res.status(200).json({
+    res.status(200).json({
         success:true,
         notes
      });
@@ -46,8 +45,8 @@ export const updateNotes = catchAsyncError(async(req,res,next)=>{
         return next(new ErrorHandler("note not found",404))    
     }
 
-    const notes = await Notes.findByIdAndUpdate(id,req.body)
-
+    await Notes.findByIdAndUpdate(id,req.body)
+    const notes = await Notes.find({user:req.user._id})
     res.status(201).json({
         success:true,
         notes
@@ -65,8 +64,8 @@ export const deleteNote = catchAsyncError(async(req,res,next)=>{
       return next(new ErrorHandler("note not found",404))    
     };
 
-    const notes = await Notes.findByIdAndDelete(id)
-
+    await Notes.findByIdAndDelete(id)
+    const notes = await Notes.find({user:req.user._id})
     res.status(200).json({
         success:true,
         notes
