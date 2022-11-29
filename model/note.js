@@ -13,7 +13,7 @@ const notesScheam = new Schema({
     },
     content:{
         type:String,
-        required:[true,"discription is required"]
+        required:[true,"content is required"]
     },
     label:{
         type:String,
@@ -26,6 +26,10 @@ const notesScheam = new Schema({
     pinned:{
      type:Boolean,
      default:false
+    },
+    theme:{
+        type:String,
+        default:"#fafafa",
     },
     createdAt:{
         type:Date,
