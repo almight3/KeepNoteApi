@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 const {Schema} = mongoose;
 
 const trashScheam = new Schema({
+    id:{
+        type:String,
+        required:true
+    },
     user:{
        type:mongoose.Schema.ObjectId,
        ref:"User",
@@ -26,6 +30,10 @@ const trashScheam = new Schema({
     pinned:{
      type:Boolean,
      default:false
+    },
+    theme:{
+        type:String,
+        default:"#fafafa",
     },
     createdAt:{
         type:Date,
