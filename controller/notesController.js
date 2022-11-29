@@ -2,6 +2,7 @@ import Notes from "../model/note.js";
 import catchAsyncError from "../middleware/asyncErrorHandler.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import sendToken from "../utils/sendToken.js";
+import Trash from "../model/trash.js";
 
 // create notes
 export const createNote = catchAsyncError(async(req,res,next)=>{
@@ -64,8 +65,21 @@ export const deleteNote = catchAsyncError(async(req,res,next)=>{
       return next(new ErrorHandler("note not found",404))    
     };
 
+    const trashData = {
+        id:id,
+        user:req.user._id,
+        title:noteExist.title,
+        content:noteExist.content,
+        priority:noteExist.priority,
+        label:noteExist.label,
+        pinned:noteExist.pinned,
+        theme:noteExist.theme,
+        createdAt:noteExist.createdAt
+    }
+    await Trash.create(trashData)
     await Notes.findByIdAndDelete(id)
     const notes = await Notes.find({user:req.user._id})
+
     res.status(200).json({
         success:true,
         notes
