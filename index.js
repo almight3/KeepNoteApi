@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRoutes from "./routes/user.js";
 import notesRoutes from "./routes/notes.js";
+import trashRoutes from "./routes/trash.js"
 import error from "./middleware/error.js";
 
 
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use("/api/v1",userRoutes)
 app.use("/api/v1",notesRoutes)
+app.use("/api/v1",trashRoutes)
 app.use(error)
 
 app.listen(process.env.PORT,()=>{
