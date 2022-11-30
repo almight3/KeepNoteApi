@@ -87,6 +87,14 @@ export const deleteNote = catchAsyncError(async(req,res,next)=>{
 
 });
 
+export const pinNote = catchAsyncError(async(req,res)=>{
+    await Notes.findByIdAndUpdate(req.body.id,{pinned:req.body.flag})
+    const notes = await Notes.find({user:req.user._id})
+    res.status(200).json({
+        success:true,
+        notes
+    });
+})
 
 
 
